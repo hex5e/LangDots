@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hover & Click Captions with Play Button</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .item {
+      position: relative;
+      width: 240px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+    .item img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out;
+    }
+    .item:hover .caption {
+      opacity: 1;
+    }
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out;
+      pointer-events: none;
+    }
+    .item:hover .play-button {
+      opacity: 1;
+    }
+    .quiz-link a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0078d4;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .quiz-link a:hover {
+      background: #005a9e;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <div class="item" data-audio="koira, jolla on punainen hattu.mp3">
+      <img src="a dog wearing a red hat.png" alt="koira, jolla on punainen hattu">
+      <div class="play-button">▶</div>
+      <div class="caption">koira, jolla on punainen hattu</div>
+    </div>
+    <div class="item" data-audio="koira, jolla on vihreä hattu.mp3">
+      <img src="a dog wearing a green hat.png" alt="koira, jolla on vihreä hattu">
+      <div class="play-button">▶</div>
+      <div class="caption">koira, jolla on vihreä hattu</div>
+    </div>
+    <div class="item" data-audio="kissa, jolla on punainen hattu.mp3">
+      <img src="a cat wearing a red hat.png" alt="kissa, jolla on punainen hattu">
+      <div class="play-button">▶</div>
+      <div class="caption">kissa, jolla on punainen hattu</div>
+    </div>
+    <div class="item" data-audio="kissa, jolla on vihreä hattu.mp3">
+      <img src="a cat wearing a green hat.png" alt="kissa, jolla on vihreä hattu">
+      <div class="play-button">▶</div>
+      <div class="caption">kissa, jolla on vihreä hattu</div>
+    </div>
+  </div>
+
+  <div class="quiz-link">
+    <a href="quiz.html">Take the Quiz</a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.item').forEach(item => {
+      const src = item.getAttribute('data-audio');
+      const audio = new Audio(src);
+      item.addEventListener('click', () => {
+        audio.currentTime = 0;
+        audio.play();
+      });
+    });
+  </script>
+</body>
+</html>
