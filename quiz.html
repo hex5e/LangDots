@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz: Identify the Audio</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question img {
+      width: 240px;
+      height: auto;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 260px;
+    }
+    .option {
+      display: flex;
+      gap: 8px;
+    }
+    .answer {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .answer:hover {
+      background: #eef;
+    }
+    .label {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .icon {
+      font-size: 20px;
+      display: none;
+    }
+    .icon.correct { color: green; }
+    .icon.wrong   { color: red; }
+    .play {
+      padding: 4px 8px;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .back-link a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #0078d4;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="question">
+    <p>Which audio matches this image?</p>
+    <img src="a cat wearing a red hat.png" alt="kissa, jolla on punainen hattu">
+  </div>
+  <div class="options">
+    <div class="option">
+      <button class="answer" data-correct="false" data-audio="koira, jolla on punainen hattu.mp3">
+        <span class="label">A</span>
+        <span class="icon wrong">✖</span>
+        <span class="icon correct">✔</span>
+      </button>
+      <button class="play" data-audio="koira, jolla on punainen hattu.mp3">Play</button>
+    </div>
+    <div class="option">
+      <button class="answer" data-correct="false" data-audio="kissa, jolla on vihreä hattu.mp3">
+        <span class="label">B</span>
+        <span class="icon wrong">✖</span>
+        <span class="icon correct">✔</span>
+      </button>
+      <button class="play" data-audio="kissa, jolla on vihreä hattu.mp3">Play</button>
+    </div>
+    <div class="option">
+      <button class="answer" data-correct="true" data-audio="kissa, jolla on punainen hattu.mp3">
+        <span class="label">C</span>
+        <span class="icon wrong">✖</span>
+        <span class="icon correct">✔</span>
+      </button>
+      <button class="play" data-audio="kissa, jolla on punainen hattu.mp3">Play</button>
+    </div>
+    <div class="option">
+      <button class="answer" data-correct="false" data-audio="koira, jolla on vihreä hattu.mp3">
+        <span class="label">D</span>
+        <span class="icon wrong">✖</span>
+        <span class="icon correct">✔</span>
+      </button>
+      <button class="play" data-audio="koira, jolla on vihreä hattu.mp3">Play</button>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="example.html">Go Back</a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.play').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-audio');
+        const audio = new Audio(src);
+        audio.currentTime = 0;
+        audio.play();
+      });
+    });
+
+    document.querySelectorAll('.answer').forEach(ans => {
+      ans.addEventListener('click', () => {
+        document.querySelectorAll('.icon').forEach(ic => ic.style.display = 'none');
+        const isCorrect = ans.getAttribute('data-correct') === 'true';
+        const icon = isCorrect ? ans.querySelector('.icon.correct') : ans.querySelector('.icon.wrong');
+        icon.style.display = 'inline';
+      });
+    });
+  </script>
+</body>
+</html>
